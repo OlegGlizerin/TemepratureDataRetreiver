@@ -22,7 +22,9 @@ namespace Service.Event
 
         public void Update(object sender, PublisherEventArguments args)
         {
-            switch(args.Command)
+            AmazonPublisher publisher = (AmazonPublisher)sender;
+            Console.WriteLine("Subscriber Start -> Publisher name:" + publisher.Name + ", Received message: " + args.Date);
+            switch (args.Command)
             {
                 case "Start":
                     LaunchCommandLineApp(args.Date);
@@ -30,22 +32,15 @@ namespace Service.Event
                 case "Stop":
                     KillProcessAndChildren(Pid);
                     break;
-
             }
-            AmazonPublisher publisher = (AmazonPublisher)sender;
-            Console.WriteLine(publisher.Name + " sent a message: " + args.Date);
+            Console.WriteLine("Subscriber Finish -> Publisher name:"  + publisher.Name + ", Received message: " + args.Date);
         }
 
         public void LaunchCommandLineApp(string date)
         {
-            //CheckIfFileAreadyExist
-
-
-            // Use ProcessStartInfo class
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
             startInfo.UseShellExecute = true;
-            //startInfo.FileName = "C:\\interviewTasks\\IceTestTask\\IceTestTask\\IceTestTask\\bin\\Debug\\netcoreapp3.1\\AmazonWeatherApplication.exe";
             startInfo.FileName = $"{Directory.GetCurrentDirectory()}\\AmazonWeatherApplication\\AmazonWeatherApplication.exe";
             startInfo.WindowStyle = ProcessWindowStyle.Normal;
             startInfo.Arguments = date;
@@ -55,26 +50,23 @@ namespace Service.Event
                 using (Process exeProcess = Process.Start(startInfo))
                 {
                     Pid = exeProcess.Id;
-                    exeProcess.WaitForInputIdle();
                 }
             }
             catch(Exception e)
             {
                 Console.WriteLine($"AmazonSubscriber error, in LaunchCommandLineApp, ex: {e}\n");
-                Console.WriteLine("Click any key to continue...\n");
+                Console.WriteLine("Click any key and enter to continue...\n");
                 Console.ReadLine();
             }
         }
 
         private static void KillProcessAndChildren(int pid)
         {
-            // Cannot close 'system idle process'.
             if (pid == 0)
             {
                 return;
             }
-            ManagementObjectSearcher searcher = new ManagementObjectSearcher
-                    ("Select * From Win32_Process Where ParentProcessID=" + pid.ToString());
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("Select * From Win32_Process Where ParentProcessID=" + pid.ToString());
             ManagementObjectCollection moc = searcher.Get();
             foreach (ManagementObject mo in moc)
             {

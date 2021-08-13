@@ -60,7 +60,7 @@ namespace TemperatureRetreiver
             Console.Clear();
             Console.Write("Please wait, Downloading the file...\n");
             Console.Write("Available Commands\n");
-            Console.Write("[2] -> Stop Process\n");
+            Console.Write("[2] -> Stop Remote Process and go to previus menu\n");
         }
 
         private static void PrintEnterDate()
@@ -97,7 +97,7 @@ namespace TemperatureRetreiver
                     line = sr.ReadLine();
                     sr.Close();
                     Console.WriteLine($"Finished retrive data successfully with path: {successFilePath}.\n");
-                    Console.WriteLine($"Result in celcius is: {line}\n");
+                    PrintHappyEnd(line);
                 }
                 catch (Exception e)
                 {
@@ -120,6 +120,13 @@ namespace TemperatureRetreiver
         private static void HandleUserStop(string userInput)
         {
             _amazonService.SendMessage("Stop", userInput);
+        }
+
+        private static void PrintHappyEnd(string celcius)
+        {
+            Console.WriteLine($"**********************************\n");
+            Console.WriteLine($"**** Result in celcius is: {celcius} ****\n");
+            Console.WriteLine($"**********************************\n");
         }
     }
 }
