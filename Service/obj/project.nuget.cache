@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "zPXRlSFgjzjsQmSOZ63GnU+4PugPhc9Dm6mnci98VjR7WBjgu+hoJ3vPR6XKK87YphwKcn4X96Mh9TURrv6Byg==",
+  "success": true,
+  "projectFilePath": "C:\\interviewTasks\\TemepratureDataRetreiver\\Service\\Service.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\JackSparrow\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
+    "C:\\Users\\JackSparrow\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
+    "C:\\Users\\JackSparrow\\.nuget\\packages\\system.codedom\\5.0.0\\system.codedom.5.0.0.nupkg.sha512",
+    "C:\\Users\\JackSparrow\\.nuget\\packages\\system.management\\5.0.0\\system.management.5.0.0.nupkg.sha512",
+    "C:\\Users\\JackSparrow\\.nuget\\packages\\system.security.accesscontrol\\5.0.0\\system.security.accesscontrol.5.0.0.nupkg.sha512",
+    "C:\\Users\\JackSparrow\\.nuget\\packages\\system.security.principal.windows\\5.0.0\\system.security.principal.windows.5.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
