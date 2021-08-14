@@ -1,13 +1,16 @@
 ﻿using Service;
 using Service.Interfaces;
+using Service.PubSub;
 using System;
 using System.IO;
+using TemperatureRetreiver.Validations;
 
 namespace TemperatureRetreiver
 {
     public class Program
     {
         public static IAmazonService _amazonService;
+        public static IDateValidation _dateValidation;
 
         public static void Main(string[] args)
         {
@@ -16,7 +19,8 @@ namespace TemperatureRetreiver
 
 
             bool endApp = false;
-            _amazonService = new AmazonService();
+            _dateValidation = new DateValidation();
+            _amazonService = new AmazonService(new AmazonSubscriber(), new AmazonPublisher());
             
             PrintWelcome();
 
@@ -71,8 +75,11 @@ namespace TemperatureRetreiver
         private static bool HandleGetWeatherByDate()
         {
             var userAborted = false;
-            PrintEnterDate();
-            var userInput = Console.ReadLine();
+
+            var userInput = HandleUserInputDate();
+
+            //ToDo: add tests
+
             _amazonService.SendMessage("Start", userInput);
             while (!SuccessFileExist() && !userAborted)
             {
@@ -88,16 +95,9 @@ namespace TemperatureRetreiver
             }
             if (SuccessFileExist())
             {
-                String line;
                 try
                 {
-                    var successFilePath = $"{Directory.GetCurrentDirectory()}\\Success.txt";
-                    Console.WriteLine($"Start SuccessFileExist -> successFilePath: {successFilePath}");
-                    StreamReader sr = new StreamReader(successFilePath);
-                    line = sr.ReadLine();
-                    sr.Close();
-                    Console.WriteLine($"Finished retrive data successfully with path: {successFilePath}.\n");
-                    PrintHappyEnd(line);
+                    HandleHappyEnd();
                 }
                 catch (Exception e)
                 {
@@ -127,6 +127,30 @@ namespace TemperatureRetreiver
             Console.WriteLine($"**********************************\n");
             Console.WriteLine($"**** Result in celcius is: {celcius} ****\n");
             Console.WriteLine($"**********************************\n");
+        }
+
+        private static void HandleHappyEnd()
+        {
+            var successFilePath = $"{Directory.GetCurrentDirectory()}\\Success.txt";
+            Console.WriteLine($"Start SuccessFileExist -> successFilePath: {successFilePath}");
+            StreamReader sr = new StreamReader(successFilePath);
+            var line = sr.ReadLine();
+            sr.Close();
+            Console.WriteLine($"Finished retrive data successfully with path: {successFilePath}.\n");
+            PrintHappyEnd(line);
+        }
+
+        private static string HandleUserInputDate()
+        {
+            var isValidDate = false;
+            var userInput = "";
+            while (!isValidDate)
+            {
+                PrintEnterDate();
+                userInput = Console.ReadLine();
+                isValidDate = _dateValidation.IsValid(userInput);
+            }
+            return userInput;
         }
     }
 }

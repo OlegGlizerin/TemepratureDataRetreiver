@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Service.Event
+namespace Service.PubSub
 {
     public class PublisherEventArguments : EventArgs
     {
