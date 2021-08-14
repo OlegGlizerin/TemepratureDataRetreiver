@@ -1,23 +1,31 @@
-﻿using System;
+﻿using Service.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Management;
 using System.Text;
 
-namespace Service.Event
+namespace Service.PubSub
 {
-    public class AmazonSubscriber
+    public class AmazonSubscriber : IAmazonSubscriber
     {
         private int Pid = -1;
-        public void Subscribe(AmazonPublisher publisher)
+
+
+        public AmazonSubscriber()
         {
-            publisher.MyEvent += Update;
+            
         }
 
-        public void UnSubscribe(AmazonPublisher publisher)
+        public void Subscribe(IAmazonPublisher publisher)
         {
-            publisher.MyEvent -= Update;
+            ((AmazonPublisher)publisher).MyEvent += Update;
+        }
+
+        public void UnSubscribe(IAmazonPublisher publisher)
+        {
+            ((AmazonPublisher)publisher).MyEvent -= Update;
         }
 
         public void Update(object sender, PublisherEventArguments args)
@@ -36,7 +44,7 @@ namespace Service.Event
             Console.WriteLine("Subscriber Finish -> Publisher name:"  + publisher.Name + ", Received message: " + args.Date);
         }
 
-        public void LaunchCommandLineApp(string date)
+        private void LaunchCommandLineApp(string date)
         {
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = true;
@@ -60,7 +68,7 @@ namespace Service.Event
             }
         }
 
-        private static void KillProcessAndChildren(int pid)
+        private void KillProcessAndChildren(int pid)
         {
             if (pid == 0)
             {

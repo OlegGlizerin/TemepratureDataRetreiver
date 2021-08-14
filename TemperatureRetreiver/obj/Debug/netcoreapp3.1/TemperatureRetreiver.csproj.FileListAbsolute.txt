@@ -50,3 +50,5 @@ C:\interviewTasks\TemepratureDataRetreiver\TemperatureRetreiver\obj\Debug\netcor
 C:\interviewTasks\TemepratureDataRetreiver\TemperatureRetreiver\obj\Debug\netcoreapp3.1\TemperatureRetreiver.dll
 C:\interviewTasks\TemepratureDataRetreiver\TemperatureRetreiver\obj\Debug\netcoreapp3.1\TemperatureRetreiver.pdb
 C:\interviewTasks\TemepratureDataRetreiver\TemperatureRetreiver\obj\Debug\netcoreapp3.1\TemperatureRetreiver.genruntimeconfig.cache
+C:\interviewTasks\TemepratureDataRetreiver\TemperatureRetreiver\bin\Debug\netcoreapp3.1\Configuration.dll
+C:\interviewTasks\TemepratureDataRetreiver\TemperatureRetreiver\bin\Debug\netcoreapp3.1\Configuration.pdb

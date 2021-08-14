@@ -97,6 +97,16 @@
           }
         }
       },
+      "Configuration/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Configuration.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Configuration.dll": {}
+        }
+      },
       "Service/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -326,6 +336,11 @@
         "version.txt"
       ]
     },
+    "Configuration/1.0.0": {
+      "type": "project",
+      "path": "../Configuration/Configuration.csproj",
+      "msbuildProject": "../Configuration/Configuration.csproj"
+    },
     "Service/1.0.0": {
       "type": "project",
       "path": "../Service/Service.csproj",
@@ -334,6 +349,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Configuration >= 1.0.0",
       "Service >= 1.0.0",
       "System.Management >= 5.0.0"
     ]
@@ -365,6 +381,9 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
+            "C:\\interviewTasks\\TemepratureDataRetreiver\\Configuration\\Configuration.csproj": {
+              "projectPath": "C:\\interviewTasks\\TemepratureDataRetreiver\\Configuration\\Configuration.csproj"
+            },
             "C:\\interviewTasks\\TemepratureDataRetreiver\\Service\\Service.csproj": {
               "projectPath": "C:\\interviewTasks\\TemepratureDataRetreiver\\Service\\Service.csproj"
             }
